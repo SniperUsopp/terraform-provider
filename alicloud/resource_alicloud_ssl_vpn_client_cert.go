@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/alibaba/terraform-provider/alicloud/connectivity"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/vpc"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/terraform-providers/terraform-provider-alicloud/alicloud/connectivity"
 )
 
 func resourceAliyunSslVpnClientCert() *schema.Resource {
@@ -16,20 +16,23 @@ func resourceAliyunSslVpnClientCert() *schema.Resource {
 		Read:   resourceAliyunSslVpnClientCertRead,
 		Update: resourceAliyunSslVpnClientCertUpdate,
 		Delete: resourceAliyunSslVpnClientCertDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
-			"ssl_vpn_server_id": &schema.Schema{
+			"ssl_vpn_server_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"name": &schema.Schema{
+			"name": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validateInstanceName,
 			},
 
-			"status": &schema.Schema{
+			"status": {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
